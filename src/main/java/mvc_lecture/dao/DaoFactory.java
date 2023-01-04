@@ -1,12 +1,18 @@
 package mvc_lecture.dao;
 
+import mvc_lecture.Config;
+
+import java.sql.SQLException;
+
 public class DaoFactory {
 
     private static Products productsDao;
 
-    public static Products getProductsDao() {
+
+    public static Products getProductsDao() throws SQLException {
+        Config configObj = new Config();
         if (productsDao == null) {
-            productsDao = new ArrayListProducts(); //go get THIS implementation [ArrayListProducts()] for our purposes DaoFactory!
+            productsDao = new MySQLProducts(configObj); //go get THIS implementation [ArrayListProducts()] for our purposes DaoFactory!
         }
         return productsDao;
     }

@@ -23,30 +23,30 @@ public class CreateProductServlet extends HttpServlet {
         req.getRequestDispatcher("/products/create.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        //Okay - I want to INSERT a product into our data source
-
-        //.insert() < Products >> ArrayListProducts >> daoFactory
-
-        Products productsDao = DaoFactory.getProductsDao(); //Go GET that implementation / check for DAO object in existence
-
-        //Method is expecting a product object (insert(Product product) for reference)
-
-        String name = req.getParameter("name"); //Form had an input for the name
-
-        double price = Double.parseDouble(req.getParameter("price")); //Form had an input for the price - we parse into a double data type
-
-        //The name and price are good -  but it is NOT a product object yet :(
-
-        Product newProduct = new Product(name, price); //An object named "newProduct" is of the Product datatype and instantiated from the Product constructor
-
-        productsDao.insert(newProduct); //Object from above line sent as argument
-
-        resp.sendRedirect("/products"); //When process is finished - redirect over to an endpoint named 'products' where the doGet on that servlet will respond
-
-
-
-
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//        //Okay - I want to INSERT a product into our data source
+//
+//        //.insert() < Products >> ArrayListProducts >> daoFactory
+//
+//        Products productsDao = DaoFactory.getProductsDao(); //Go GET that implementation / check for DAO object in existence
+//
+//        //Method is expecting a product object (insert(Product product) for reference)
+//
+//        String name = req.getParameter("name"); //Form had an input for the name
+//
+//        double price = Double.parseDouble(req.getParameter("price")); //Form had an input for the price - we parse into a double data type
+//
+//        //The name and price are good -  but it is NOT a product object yet :(
+//
+//        Product newProduct = new Product(name, price); //An object named "newProduct" is of the Product datatype and instantiated from the Product constructor
+//
+//        productsDao.insert(newProduct); //Object from above line sent as argument
+//
+//        resp.sendRedirect("/products"); //When process is finished - redirect over to an endpoint named 'products' where the doGet on that servlet will respond
+//
+//
+//
+//
+//    }
 }
