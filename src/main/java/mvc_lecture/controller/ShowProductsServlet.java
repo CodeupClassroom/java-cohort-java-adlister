@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/products")
@@ -21,10 +22,20 @@ public class ShowProductsServlet extends HttpServlet {
         //I want to talk to the ALL method - the ALL method is in Products > implemented by ArrayListProducts > instantiated in DaoFactory
 
         //If I want a specific Data Access Object - I need to talk to my Factory!
-        Products productDao = DaoFactory.getProductsDao(); //DaoFactory, go RUN this method (method > IF DAO EXISTS, gimme, IF DAO NOT EXISTS, create and gimme)
+        Products productDao = null; //DaoFactory, go RUN this method (method > IF DAO EXISTS, gimme, IF DAO NOT EXISTS, create and gimme)
+        try {
+            productDao = DaoFactory.getProductsDao();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //So now I've got a DAO - what do I do with it? We have a perfectly good ALL method we wrote :D
-        List<Product> myProducts = productDao.all(); //Go run that ALL method and come back with the results of what the implementation tells you to do
+        List<Product> myProducts = null; //Go run that ALL method and come back with the results of what the implementation tells you to do
+        try {
+            myProducts = productDao.all();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         req.setAttribute("productsList", myProducts);
 
